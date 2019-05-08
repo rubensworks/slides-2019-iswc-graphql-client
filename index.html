@@ -83,8 +83,8 @@
     </section>
     
     <section id="graphiql-example" class="slide">
-        <iframe src="https://graphql.github.io/swapi-graphql/?query=%7B%0A%20%20allFilms(first%3A2)%20%7B%0A%20%20%20%20films%20%7B%0A%20%20%20%20%20%20title%0A%20%20%20%20%20%20episodeID%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D"></iframe>
-        <p style="font-size: small"><a href="https://graphql.github.io/swapi-graphql/">https://graphql.github.io/swapi-graphql/</a></p>
+        <iframe src="https://metaphysics-production.artsy.net/?query=%7B%0A%20%20articles%20%7B%0A%20%20%20%20title%0A%20%20%20%20author%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D"></iframe>
+        <p style="font-size: small"><a href="https://metaphysics-production.artsy.net/">https://metaphysics-production.artsy.net/</a></p>
     </section>
     
     <section id="index-manual" class="slide index">
@@ -94,6 +94,29 @@
         <li><a href="#index-lowlevel">Low-level tools</a></li>
         <li><a href="#index-highlevel">High-level tools</a></li>
       </ul>
+    </section>
+    
+    <section id="manual-http-get" class="slide">
+        <h2>GraphQL interfaces accept HTTP GET</h2>
+        <p>Requests require the <code>query</code> parameter.</p>
+        <p>GraphQL query must be URL-encoded.</p>
+        <p>We can just query them via the command-line with tools like <code>curl</code>:</p>
+        <pre>curl "https://metaphysics-production.artsy.net/\
+?query=%7Barticles%7Btitle%20author%7Bname%7D%7D%7D"</pre>
+        <p>Outputs JSON:</p>
+        <pre>{"data":{"articles":[{"title":" 5 questions for Liao Zhixin ",...</pre>
+    </section>
+    
+    <section id="manual-http-post" class="slide">
+        <h2>GraphQL interfaces accept HTTP POST</h2>
+        <p>The query can be passed as <code>application/json</code> body.</p>
+        <pre>curl \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{ "query": "{articles{title author{name}}}" }' \
+  https://metaphysics-production.artsy.net/</pre>
+        <p>Outputs JSON:</p>
+        <pre>{"data":{"articles":[{"title":" 5 questions for Liao Zhixin ",...</pre>
     </section>
     
     <section id="index-lowlevel" class="slide index">

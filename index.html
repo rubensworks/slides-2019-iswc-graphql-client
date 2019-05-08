@@ -111,12 +111,32 @@
         <h2>GraphQL interfaces accept HTTP POST</h2>
         <p>The query can be passed as <code>application/json</code> body.</p>
         <pre>curl \
-  -X POST \
-  -H "Content-Type: application/json" \
-  -d '{ "query": "{articles{title author{name}}}" }' \
-  https://metaphysics-production.artsy.net/</pre>
+    -X POST \
+    -H "Content-Type: application/json" \
+    -d '{ "query": "{articles{title author{name}}}" }' \
+    https://metaphysics-production.artsy.net/</pre>
         <p>Outputs JSON:</p>
         <pre>{"data":{"articles":[{"title":" 5 questions for Liao Zhixin ",...</pre>
+    </section>
+    
+    <section id="manual-javascript" class="slide">
+        <h2>Querying from JavaScript</h2>
+        <pre>const query = `{
+    articles {
+      title
+      author { name }
+    }
+  }`;
+fetch('https://metaphysics-production.artsy.net/', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
+  body: JSON.stringify({ query, variables: { dice, sides } })
+})
+  .then(r => r.json())
+  .then(data => console.log('data returned: ', data));</pre>
     </section>
     
     <section id="index-lowlevel" class="slide index">
@@ -126,6 +146,42 @@
         <li class="current"><a href="#index-lowlevel">Low-level tools</a></li>
         <li><a href="#index-highlevel">High-level tools</a></li>
       </ul>
+    </section>
+    
+    <section id="lowlevel-apollo" class="slide">
+        <h2><code>apollo-fetch</code> simplifies querying<br />in JavaScript</h2>
+        <p>Allows a <em>fetcher</em> to be created for a specific interface by URL.</p>
+        <pre>const { createApolloFetch } = require('apollo-fetch');
+const url = 'https://metaphysics-production.artsy.net/';
+const fetch = createApolloFetch({ url });
+
+fetch({
+  query: `{
+    articles {
+      title
+      author { name }
+    }
+  }`,
+  variables: { ... },
+}).then(res => console.log(res.data));
+</pre>
+    </section>
+    
+    <section id="lowlevel-fetchql" class="slide">
+        <h2>FetchQL is a lightweight alternative</h2>
+        <pre>const FetchQL = require('fetchql');
+const url = 'https://metaphysics-production.artsy.net/';
+var fetch = new FetchQL({ url })
+fetch({
+  query: `{
+    articles {
+      title
+      author { name }
+    }
+  }`,
+  variables: { ... },
+}).then(res => console.log(res.data));
+</pre>
     </section>
     
     <section id="index-highlevel" class="slide index">

@@ -45,10 +45,10 @@
     </section>
     
     <section id="start" class="slide">
-        <h2 class="big">Title</h2>
+        <h2 class="big">How to query with GraphQL in practise?</h2>
         <ul>
             <li>
-                TODO
+                Given the availability of a GraphQL interface
             </li>
         </ul>
     </section>
@@ -193,6 +193,86 @@ fetch({
       </ul>
     </section>
     
+    <section id="highlevel-apollo-client" class="slide">
+        <h2>Apollo Client</h2>
+        <p>A generic GraphQL client that can be plugged into various frameworks.</p>
+        <p class="indent">For example: React, Angular, Vue, ...</p>
+        <pre>import ApolloClient from "apollo-boost";
+            
+const uri = "https://metaphysics-production.artsy.net/";
+const client = new ApolloClient({ uri });
+
+client.query({
+  query: gql`{
+    articles {
+      title
+      author { name }
+    }
+  }`
+}).then(res => console.log(res.data));</pre>
+    </section>
+    
+    <section id="highlevel-apollo-client-react-init" class="slide">
+        <h2>Configuring Apollo Client in React</h2>
+        <p>Adding the <code>ApolloProvider</code> to your React app</p>
+        <pre>import { ApolloProvider } from "react-apollo";
+
+const App = () => (
+  &lt;ApolloProvider client={client}&gt;
+    &lt;div&gt;
+      &lt;h2&gt;My first Apollo app 🚀&lt;/h2&gt;
+    &lt;/div&gt;
+  &lt;/ApolloProvider&gt;
+);</pre>
+    </section>
+    
+    <section id="highlevel-apollo-client-react-query" class="slide">
+        <h2>Executing GraphQL queries in React</h2>
+        <pre>import { Query } from "react-apollo";
+import { gql } from "apollo-boost";
+const Articles = () =&gt; (
+  &lt;Query query={gql`{
+      articles {
+        title
+        author { name }
+      }
+    }`}&gt;
+    {({ loading, error, data }) =&gt; {
+      if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
+      if (error) return &lt;p&gt;Error :(&lt;/p&gt;;
+      return data.articles.map(({ title, author }) =&gt; (
+        &lt;div key={title}&gt;
+          &lt;p&gt;{title}: {author.name}&lt;/p&gt;
+        &lt;/div&gt;
+      ));
+    }}
+  &lt;/Query&gt;);</pre>
+    </section>
+    
+    <section id="highlevel-apollo-client-advanced" class="slide">
+        <h2>Apollo Client advanced configuration</h2>
+        <p>Cache: Client-side caching for repeated queries <em>(in-memory or custom)</em></p>
+        <p>Link: An abstract way of getting a GraphQL operation result</p>
+        <p class="indent">
+            <ul>
+                <li>HTTP: fetching remote data</li>
+                <li>Retry: Perform multiple attempts on network or server failure</li>
+                <li>Batch: Groups multiple GraphQL operations</li>
+                <li>Batch HTTP: Groups multiple HTTP requests</li>
+                <li>Error: handling of errors</li>
+                <li>REST: query over existing REST endpoints</li>
+            </ul>
+        </p>
+    </section>
+    
+    <section id="highlevel-gatsby" class="slide">
+        <h2>The Gatsby framework<br />for React-based static Web apps</h2>
+        <p>Generates Progressive Web App: pre-builds pages for faster serving.</p>
+        <p>Client-side JavaScript can still make pages dynamic.</p>
+        <p>Support various datasources including <strong>GraphQL</strong>.</p>
+        <p><img src="img/gatsby.png" alt="Gatsby" width="50%" style="float: right" /></p>
+    </section>
+    
     <section id="index-final" class="slide index">
       <ul>
         <li><a href="#index-graphiql">GraphiQL</a></li>
@@ -200,6 +280,16 @@ fetch({
         <li><a href="#index-lowlevel">Low-level tools</a></li>
         <li><a href="#index-highlevel">High-level tools</a></li>
       </ul>
+    </section>
+    
+    <section id="sources" class="slide">
+        <h2>Sources</h2>
+        <ul style="font-size: 0.7em">
+            <li>GraphQL.org: <a href="https://graphql.org/learn/schema/">https://graphql.org/learn/</a></li>
+            <li>Apollo Blog: <a href="https://blog.apollographql.com/4-simple-ways-to-call-a-graphql-api-a6807bcdb355">https://blog.apollographql.com/4-simple-ways-to-call-a-graphql-api-a6807bcdb355</a></li>
+            <li>Apollo Client: <a href="https://www.apollographql.com/docs/react/essentials/get-started">https://www.apollographql.com/docs/react/essentials/get-started</a></li>
+            <li>Gatbsy: <a href="https://www.gatsbyjs.org/">https://www.gatsbyjs.org/</a></li>
+        </ul>
     </section>
 
     <footer>

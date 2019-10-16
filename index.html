@@ -45,12 +45,19 @@
     </section>
     
     <section id="start" class="slide">
-        <h2 class="big" style="margin-top: 180px">How to query with GraphQL in practise?</h2>
+        <h2 class="big" style="margin-top: 180px">How to practically query with GraphQL?</h2>
         <ul>
             <li>
                 Given the availability of a GraphQL interface
             </li>
         </ul>
+    </section>
+    
+    <section id="warning" class="slide">
+        <h2>Notes</h2>
+        <ul>
+            <li>Examples in JavaScript, similar in other languages</li>
+        </li>
     </section>
     
     <section id="index" class="slide index">
@@ -193,6 +200,22 @@ fetch({
       </ul>
     </section>
     
+    <section id="intro-apollo" class="slide">
+        <h2>Apollo: a fully-featured GraphQL platform</h2>
+        <p><img src="img/apollo.png" alt="Apollo" width="50%" style="float: right" /></p>
+        <p><strong>Main features</strong>:</p>
+        <ul>
+           <li><strong>Apollo Client: GraphQL client (JS)</strong></li>
+           <li>Apollo Server: GraphQL server (JS)</li>
+           <li>Schema Registry: central repo for schemas + metadata (<em>e.g. field usage stats</em>)</li>
+           <li><a href="https://www.apollographql.com/docs/platform/editor-plugins">IDE Plugin</a>: VS Code</li>
+           <li>Operation Registry (+): central repo for schema operations</li>
+           <li>Execution Gateway (++): federation service</li>
+           <li>Trace Warehouse (+): collects statistics on executed queries on server</li>
+        </ul>
+        <p><em>(+): Team plan; (++): Enterprise plan</em></p>
+    </section>
+    
     <section id="highlevel-apollo-client" class="slide">
         <h2>Apollo Client</h2>
         <p>A generic GraphQL client that can be plugged into various frameworks.</p>
@@ -271,6 +294,15 @@ const Articles = () =&gt; (
         <p>Client-side JavaScript can still make pages dynamic.</p>
         <p>Support various datasources including <strong>GraphQL</strong>.</p>
         <p><img src="img/gatsby.png" alt="Gatsby" width="50%" style="float: right" /></p>
+    </section>
+    
+    <section id="client-alternatives" class="slide">
+        <h2>GraphQL Client Alternatives</h2>
+        <p>Apollo is the most popular platform, used by Airbnb, Twitch, Medium, ...</p>
+        <ul>
+           <li><a href="https://github.com/FormidableLabs/urql">urql</a>: GraphQL client for React</li>
+           <li><a href="https://github.com/facebook/relay">Relay</a>: One of the first GraphQL clients for React</li>
+        </ul>
     </section>
     
     <section id="index-final" class="slide index">
